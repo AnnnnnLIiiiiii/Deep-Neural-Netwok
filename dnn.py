@@ -1,5 +1,11 @@
 import numpy as np
+import matplotlib.pyplot as plt
 import h5py
+import scipy
+from PIL import Image
+from scipy import ndimage
+import glob
+from sklearn.model_selection import train_test_split
 
 def load_dataset(database_path):
     # open dataset
@@ -107,7 +113,8 @@ def dnn_sigmoid(Z):
     A -- output of sigmoid(z), same shape as Z
     cache -- returns Z as well, useful during backpropagation
     """
-
+    print("Z")
+    print(Z)
     A = 1 / (1 + np.exp(-Z))
     cache = Z
 
@@ -129,7 +136,8 @@ def linear_forward(A, W, b):
     """
 
     Z = W.dot(A) + b
-
+    print("W")
+    print(W)
     assert (Z.shape == (W.shape[0], A.shape[1]))
     cache = (A, W, b)
 
@@ -401,7 +409,7 @@ def update_parameters(parameters, grads, learning_rate):
     return parameters
 
 
-def dnn_model(X, Y, layers_dims, learning_rate=0.0075, num_iterations=2000, print_cost=False):  # lr was 0.009
+def dnn_model(X, Y, layers_dims, learning_rate=0.0075, num_iterations=3000, print_cost=False):  # lr was 0.009
     """
     Implements a L-layer neural network: [LINEAR->RELU]*(L-1)->LINEAR->SIGMOID.
 

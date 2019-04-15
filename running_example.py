@@ -1,11 +1,3 @@
-import numpy as np
-import matplotlib.pyplot as plt
-import h5py
-import scipy
-from PIL import Image
-from scipy import ndimage
-import glob
-from sklearn.model_selection import train_test_split
 from dnn import *
 
 # Load and organize data from files
@@ -26,16 +18,15 @@ plt.show()
 num_iterations = int(input("Enter the desired iteration, the default value is 2000: "))
 learning_rate = float(input("Enter the desired learning rate, the default value is 0.0075: "))
 layers_num = int(input("Enter the desired number of hidden layers(only integer): "))
-input_units = 1
-for shape in data_dict["car_train_x"].shape:
-    input_units *= shape
-layers_dims = [input_units]
+layers_dims = [data_dict["car_train_x"].shape[0]]
+
 for i in range(layers_num):
     units = int(input("Enter the number of hidden units in the %d layer: " %(i+1)))
     layers_dims.append(units)
-
-layers_dims = [12288, 20, 7, 5, 1]
-model_parameters = dnn_model(data_dict["car_train_x"], data_dict["car_train_y"], layers_dims, num_iterations, print_cost = True)
+print("This is the dimension of the neural network (include input layer)")
+print(layers_dims)
+# layers_dims = [12288, 20, 7, 5, 1]
+model_parameters = dnn_model(data_dict["car_train_x"], data_dict["car_train_y"], layers_dims, num_iterations, print_cost=True)
 
 # # Plot the costs correspoidng to iteration
 # costs = np.squeeze(d_lg['costs'])
